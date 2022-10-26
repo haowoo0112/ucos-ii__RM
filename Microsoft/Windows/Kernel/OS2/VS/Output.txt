@@ -1,0 +1,4 @@
+ 0	task( 1)( 0)	task( 2)( 0)	OS_Sched ()
+ 0	task( 2)( 0)	task(63)	OS_Sched ()
+ 4	task(63)	task( 1)( 1)	OSIntExit ()
+ 4	task( 1)( 1)	task(63)	OS_Sched ()
