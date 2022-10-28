@@ -147,14 +147,8 @@ void  task1(void* p_arg) {
     task_para_set* task_data;
     task_data = p_arg;
     while (1) 
-    {/*
-        printf("Tick: %d, Hello from task%d\n", OSTime, task_data->TaskID);
-        if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
-        {
-            fprintf(Output_fp, "Tick: %d, Hello from task%d\n", OSTime, task_data->TaskID);
-            fclose(Output_fp);
-        }*/
-        OSTimeDly(task_data->TaskPeriodic);
+    {
+
     }
 }
 
@@ -162,14 +156,8 @@ void  task2(void* p_arg) {
     task_para_set* task_data;
     task_data = p_arg;
     while (1)
-    {/*
-        printf("Tick: %d, Hello from task%d\n", OSTime, task_data->TaskID);
-        if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
-        {
-            fprintf(Output_fp, "Tick: %d, Hello from task%d\n", OSTime, task_data->TaskID);
-            fclose(Output_fp);
-        }*/
-        OSTimeDly(task_data->TaskPeriodic);
+    {
+        
     }
 }
 /*

@@ -88,6 +88,9 @@ typedef struct task_para_set {
     INT16U TaskPeriodic;
     INT16U TaskNumber;
     INT16U TaskPriority;
+    INT16U count;
+    INT16U start_time;
+    INT16U finish_time;
 } task_para_set;
 
 int TASK_NUMBER;    //Number of the input tasks
@@ -607,7 +610,7 @@ typedef struct os_tcb {
     OS_STK          *OSTCBStkPtr;           /* Pointer to current top of stack                         */
 
 #if OS_TASK_CREATE_EXT_EN > 0u
-    void            *OSTCBExtPtr;           /* Pointer to user definable data for TCB extension        */
+    task_para_set *OSTCBExtPtr;           /* Pointer to user definable data for TCB extension        */
     OS_STK          *OSTCBStkBottom;        /* Pointer to bottom of stack                              */
     INT32U           OSTCBStkSize;          /* Size of task stack (in number of stack elements)        */
     INT16U           OSTCBOpt;              /* Task options as passed by OSTaskCreateExt()             */
