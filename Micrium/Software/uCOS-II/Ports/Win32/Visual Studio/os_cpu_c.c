@@ -624,10 +624,7 @@ void  OSTCBInitHook (OS_TCB  *p_tcb)
 
 #if (OS_MSG_TRACE > 0u)
     //OS_Printf("Task[%3.1d] created, Thread ID %5.0d\n", p_tcb->OSTCBPrio, p_stk->ThreadID);
-    if (p_tcb->OSTCBId != OS_TASK_IDLE_ID)
-        OS_Printf("Task[%2d] created, TCB Address\t%6x\n", p_tcb->OSTCBId, p_tcb);
-    else
-        OS_Printf("Task[%2d] created, TCB Address\t%6x\n", 63, p_tcb);
+    
 
 #endif
 

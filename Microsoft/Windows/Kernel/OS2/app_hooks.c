@@ -105,11 +105,11 @@ void InputFile() {
     errno_t err;
     if ((err = fopen_s(&fp, INPUT_FULE_NAME, "r")) == 0)    /*task set 1-4*/
     {
-        printf("The file 'TaskSet.txt' was opened\n");
+        printf("the file 'TaskSet.txt' was opened\n");
     }
     else
     {
-        printf("The file 'TaskSet.txt' was not opened\n");
+        printf("the file 'TaskSet.txt' was not opened\n");
     }
 
     char str[MAX];
@@ -148,7 +148,8 @@ void InputFile() {
 
         j++;
     }
-    
+
+    //sort
     int count = 0, min = 99, min_index;
     int* period;
     period = malloc(TASK_NUMBER * sizeof(int));

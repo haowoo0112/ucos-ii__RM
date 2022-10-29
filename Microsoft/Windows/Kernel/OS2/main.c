@@ -94,7 +94,7 @@ int  main (void)
     CPU_IntDis();                                               /* Disable all Interrupts                               */
     CPU_Init();                                                 /* Initialize the uC/CPU services                       */
 
-    
+    OSInit();
 
     /*Initialize Output File*/
     OutFileInit();
@@ -102,7 +102,7 @@ int  main (void)
     /*Input File*/
     InputFile();
 
-    OSInit();                                                   /* Initialize uC/OS-II                                  */
+                                                      /* Initialize uC/OS-II                                  */
 
     /*Dynamic Create the Stack size*/
     Task_STK = malloc(TASK_NUMBER * sizeof(int*));

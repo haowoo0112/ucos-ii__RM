@@ -1109,7 +1109,6 @@ void  OSTimeTick (void)
         if (OSTCBCur->OSTCBPrio != OS_TASK_IDLE_PRIO) {
             if (OSTCBCur->OSTCBExtPtr->count < OSTCBCur->OSTCBExtPtr->TaskExecutionTime-1) {
                 OSTCBCur->OSTCBExtPtr->count = (OSTCBCur->OSTCBExtPtr->count) + 1;
-                //printf("%d %d %d \n", OSTimeGet(), OSTCBCur->OSTCBId, OSTCBCur->OSTCBExtPtr->count);
             }
             else {
                 OSTCBCur->OSTCBExtPtr->finish_time = OSTimeGet();
@@ -1155,7 +1154,7 @@ void  OSTimeTick (void)
         ptcb = OSTCBList;                                  /* Point at first TCB in TCB list               */
         while (ptcb->OSTCBPrio != OS_TASK_IDLE_PRIO) {     /* Go through all TCBs in TCB list              */
             OS_ENTER_CRITICAL();
-            if (OSTimeGet() == ptcb->OSTCBExtPtr->start_time + ptcb->OSTCBExtPtr->TaskPeriodic) {
+            if (OSTimeGet() == ptcb->OSTCBExtPtr->start_time + ptcb->OSTCBExtPtr->TaskPeriodic && OSTimeGet() > ptcb->OSTCBExtPtr->TaskArriveTime) {
                 printf("%2d\tMissDeadline\t task(%2d)(%2d)\t -------------------\n", OSTimeGet(), ptcb ->OSTCBId, ptcb->OSTCBExtPtr->TaskNumber);
                 if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
                 {
@@ -2311,30 +2310,35 @@ INT8U  OS_TCBInit (INT8U    prio,
         if (ptcb->OSTCBId != OS_TASK_IDLE_ID)
             ptcb->OSTCBExtPtr->TaskNumber = 0;
 
-        if(OSTCBList->OSTCBId != OS_TASK_IDLE_ID)
+        //PA1 part1
+        if (ptcb->OSTCBId != OS_TASK_IDLE_ID) {
+            printf("Task[%2d] created, TCB Address\t%6x\n", ptcb->OSTCBId, ptcb);
             printf("------After TCB[%2d] being linked------\n", OSTCBList->OSTCBId);
-        else
+        }
+        else {
+            printf("Task[%2d] created, TCB Address\t%6x\n", 63, ptcb);
             printf("------After TCB[%2d] being linked------\n", 63);
-
+        }
         printf("Previous TCB point to address\t%6x\n", OSTCBList->OSTCBPrev);
         printf("Current\t TCB point to address\t%6x\n", OSTCBList);
         printf("Next\t TCB point to address\t%6x\n", OSTCBList->OSTCBNext);
         
         printf("\n");
 
-        if (OSTaskCtr == TASK_NUMBER + 1) {
-            printf("================TCB linked list=============\n");
-            printf("Task\tPrev_TCB_addr\tTCB_addr\tNext_TCB_addr\n");
+
+        if (OSTaskCtr == TASK_NUMBER + 1 && ptcb->OSTCBId != OS_TASK_IDLE_ID) {
+            printf("================TCB linked list================\n");
+            printf("Task\tPrev_TCB_addr\tTCB_addr   Next_TCB_addr\n");
             ptcb = OSTCBList;
             while (ptcb != (OS_TCB*)0) {
                 if (ptcb->OSTCBId != OS_TASK_IDLE_ID)
-                    printf("%2d\t     %6x\t  %6x\t     %6x\n", ptcb->OSTCBId, ptcb->OSTCBPrev, ptcb, ptcb->OSTCBNext);
+                    printf("%2d\t     %6x\t  %6x\t%6x\n", ptcb->OSTCBId, ptcb->OSTCBPrev, ptcb, ptcb->OSTCBNext);
                 else
-                    printf("%2d\t     %6x\t  %6x\t     %6x\n", 63, ptcb->OSTCBPrev, ptcb, ptcb->OSTCBNext);
+                    printf("%2d\t     %6x\t  %6x\t%6x\n", 63, ptcb->OSTCBPrev, ptcb, ptcb->OSTCBNext);
                 ptcb = ptcb->OSTCBNext;
             }
+            printf("\n");
         }
-        
         
         OS_EXIT_CRITICAL();
         return (OS_ERR_NONE);
