@@ -713,10 +713,16 @@ void  OSIntExit (void)
                 if (OSPrioHighRdy != OSPrioCur) {          /* No Ctx Sw if current task is highest rdy */
 
                     if (OSTCBCur->OSTCBDly == 0)
-                        printf("pre");
+                        printf("%2d\tPreemption\ttask(%2d)(%2d)\ttask(%2d)(%2d)\n", OSTimeGet(), OSTCBCur->OSTCBId, OSTCBCur->OSTCBCtxSwCtr, OSTCBHighRdy->OSTCBId, OSTCBHighRdy->OSTCBCtxSwCtr);
                     else
-                        printf("com");
-                    printf("%2d\ttask(%2d)(%2d)\ttask(%2d)(%2d)\tOSIntExit ()\n", OSTimeGet(), OSTCBCur->OSTCBId, OSTCBCur->OSTCBCtxSwCtr, OSTCBHighRdy->OSTCBId, OSTCBHighRdy->OSTCBCtxSwCtr);
+                        printf("%2d\tCompletion\ttask(%2d)(%2d)\ttask(%2d)(%2d)\t      %d\t%d\n",
+                            OSTimeGet(),
+                            OSTCBCur->OSTCBId, OSTCBCur->OSTCBCtxSwCtr,
+                            OSTCBHighRdy->OSTCBId, OSTCBHighRdy->OSTCBCtxSwCtr,
+                            OSTimeGet() - OSTCBCur->OSTCBExtPtr->start_time,
+                            OSTCBCur->OSTCBCtxSwCtr
+                        );
+                    
                     if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
                     {
                         fprintf(Output_fp, "%2d\ttask(%2d)(%2d)\ttask(%2d)(%2d)\tOSIntExit ()\n", OSTimeGet(), OSTCBCur->OSTCBId, OSTCBCur->OSTCBCtxSwCtr, OSTCBHighRdy->OSTCBId, OSTCBHighRdy->OSTCBCtxSwCtr);
@@ -889,14 +895,8 @@ void  OSStart (void)
         OSPrioCur     = OSPrioHighRdy;
         OSTCBHighRdy  = OSTCBPrioTbl[OSPrioHighRdy]; /* Point to highest priority task ready to run    */
         OSTCBCur      = OSTCBHighRdy;
-        /*printf("Tick\tCurrentTask ID\tNextTask ID\tCaller\n");
-        if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
-        {
-            fprintf(Output_fp, "%2d\t***********\ttask(%2d)(%2d)\tOSStart ()\n", OSTimeGet(), OSTCBCur->OSTCBId, 0);
-            fclose(Output_fp);
-        }
-        printf("%2d\t***********\ttask(%2d)(%2d)\tOSStart ()\n",OSTimeGet(), OSTCBCur->OSTCBId, 0);
-        */
+        printf("Tick\tEvent\t      CurrentTask ID\tNextTask ID    ResponseTime\t#of ContextSwitch\tPreemptionTime\tOSTimeDly\n");
+
         OSStartHighRdy();                            /* Execute target specific code to start task     */
     }
 }
@@ -1059,7 +1059,7 @@ void  OSTimeTick (void)
             else {
                 OSTCBCur->OSTCBExtPtr->finish_time = OSTimeGet();
                 OSTCBCur->OSTCBDly = (OSTCBCur->OSTCBExtPtr->TaskPeriodic) - (OSTCBCur->OSTCBExtPtr->finish_time - OSTCBCur->OSTCBExtPtr->start_time);
-                y = OSTCBCur->OSTCBY;        /* Delay current task                                 */
+                y = OSTCBCur->OSTCBY;        
                 OSRdyTbl[y] &= (OS_PRIO)~OSTCBCur->OSTCBBitX;
                 OS_TRACE_TASK_SUSPENDED(OSTCBCur);
                 if (OSRdyTbl[y] == 0u) {

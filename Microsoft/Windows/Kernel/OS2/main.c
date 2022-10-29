@@ -62,8 +62,7 @@ static  OS_STK  StartupTaskStk[APP_CFG_STARTUP_TASK_STK_SIZE];
 *                                         FUNCTION PROTOTYPES
 *********************************************************************************************************
 */
-static  void  task1(void* p_arg);
-static  void  task2(void* p_arg);
+static  void  task(void* p_arg);
 static  void  StartupTask (void  *p_arg);
 
 
@@ -111,28 +110,21 @@ int  main (void)
     /* for each pointer, allocate storage for an array of ints*/
     int n;
     OS_TCB* ptcb;
+    
+    /*Create Task Set*/
     for (n = 0; n < TASK_NUMBER; n++){
         Task_STK[n] = malloc(TASK_STACKSIZE * sizeof(int));
+        OSTaskCreateExt(task,                           
+            &TaskParameter[n],
+            &Task_STK[n][TASK_STACKSIZE - 1],
+            TaskParameter[n].TaskPriority,
+            TaskParameter[n].TaskID,
+            &Task_STK[n][0],
+            TASK_STACKSIZE,
+            &TaskParameter[n],
+            (OS_TASK_OPT_STK_CHK | OS_TASK_OPT_STK_CLR));
     }
-    /*Create Task Set*/
-    OSTaskCreateExt(task1,                               /* Create the task1*/
-        &TaskParameter[0],
-        &Task_STK[0][TASK_STACKSIZE - 1],
-        TaskParameter[0].TaskPriority,
-        TaskParameter[0].TaskID,
-        &Task_STK[0][0],
-        TASK_STACKSIZE,
-        &TaskParameter[0],
-        (OS_TASK_OPT_STK_CHK | OS_TASK_OPT_STK_CLR));
-    OSTaskCreateExt(task2,                               /* Create the task1*/
-        &TaskParameter[1],
-        &Task_STK[1][TASK_STACKSIZE - 1],
-        TaskParameter[1].TaskPriority,
-        TaskParameter[1].TaskID,
-        &Task_STK[1][0],
-        TASK_STACKSIZE,
-        &TaskParameter[1],
-        (OS_TASK_OPT_STK_CHK | OS_TASK_OPT_STK_CLR));
+    
     
     
     OSTimeSet(0);
@@ -143,7 +135,7 @@ int  main (void)
     }
 }
 
-void  task1(void* p_arg) {
+void  task(void* p_arg) {
     task_para_set* task_data;
     task_data = p_arg;
     while (1) 
@@ -152,14 +144,6 @@ void  task1(void* p_arg) {
     }
 }
 
-void  task2(void* p_arg) {
-    task_para_set* task_data;
-    task_data = p_arg;
-    while (1)
-    {
-        
-    }
-}
 /*
 *********************************************************************************************************
 *                                            STARTUP TASK

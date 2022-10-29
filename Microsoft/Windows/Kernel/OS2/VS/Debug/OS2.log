@@ -1,1 +1,13 @@
-﻿  OS2.vcxproj -> C:\Users\ib701\Desktop\RTOS_M11102118_PA1\Microsoft\Windows\Kernel\OS2\VS\Debug\OS2.exe
+﻿  os_core.c
+C:\Users\ib701\Desktop\RTOS_M11102118_PA1\Micrium\Software\uCOS-II\Source\os_core.c(701,13): warning C4101: 'ptcb': 未參考的區域變數
+C:\Users\ib701\Desktop\RTOS_M11102118_PA1\Micrium\Software\uCOS-II\Source\os_core.c(1000,13): warning C4013: 'exit' 未定義; 假設 extern 傳回整數
+C:\Users\ib701\Desktop\RTOS_M11102118_PA1\Micrium\Software\uCOS-II\Source\os_core.c(2220,16): warning C4477: 'printf' : 格式字串 '%6x' 需要 'unsigned int' 類型的引數，但 variadic 引數 1 的類型為 'os_tcb *'
+C:\Users\ib701\Desktop\RTOS_M11102118_PA1\Micrium\Software\uCOS-II\Source\os_core.c(2221,16): warning C4477: 'printf' : 格式字串 '%6x' 需要 'unsigned int' 類型的引數，但 variadic 引數 1 的類型為 'OS_TCB *'
+C:\Users\ib701\Desktop\RTOS_M11102118_PA1\Micrium\Software\uCOS-II\Source\os_core.c(2222,16): warning C4477: 'printf' : 格式字串 '%6x' 需要 'unsigned int' 類型的引數，但 variadic 引數 1 的類型為 'os_tcb *'
+C:\Users\ib701\Desktop\RTOS_M11102118_PA1\Micrium\Software\uCOS-II\Source\os_core.c(2232,28): warning C4477: 'printf' : 格式字串 '%6x' 需要 'unsigned int' 類型的引數，但 variadic 引數 2 的類型為 'os_tcb *'
+C:\Users\ib701\Desktop\RTOS_M11102118_PA1\Micrium\Software\uCOS-II\Source\os_core.c(2232,28): warning C4477: 'printf' : 格式字串 '%6x' 需要 'unsigned int' 類型的引數，但 variadic 引數 3 的類型為 'OS_TCB *'
+C:\Users\ib701\Desktop\RTOS_M11102118_PA1\Micrium\Software\uCOS-II\Source\os_core.c(2232,28): warning C4477: 'printf' : 格式字串 '%6x' 需要 'unsigned int' 類型的引數，但 variadic 引數 4 的類型為 'os_tcb *'
+C:\Users\ib701\Desktop\RTOS_M11102118_PA1\Micrium\Software\uCOS-II\Source\os_core.c(2234,28): warning C4477: 'printf' : 格式字串 '%6x' 需要 'unsigned int' 類型的引數，但 variadic 引數 2 的類型為 'os_tcb *'
+C:\Users\ib701\Desktop\RTOS_M11102118_PA1\Micrium\Software\uCOS-II\Source\os_core.c(2234,28): warning C4477: 'printf' : 格式字串 '%6x' 需要 'unsigned int' 類型的引數，但 variadic 引數 3 的類型為 'OS_TCB *'
+C:\Users\ib701\Desktop\RTOS_M11102118_PA1\Micrium\Software\uCOS-II\Source\os_core.c(2234,28): warning C4477: 'printf' : 格式字串 '%6x' 需要 'unsigned int' 類型的引數，但 variadic 引數 4 的類型為 'os_tcb *'
+  OS2.vcxproj -> C:\Users\ib701\Desktop\RTOS_M11102118_PA1\Microsoft\Windows\Kernel\OS2\VS\Debug\OS2.exe
