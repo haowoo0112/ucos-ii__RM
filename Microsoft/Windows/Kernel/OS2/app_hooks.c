@@ -165,7 +165,6 @@ void InputFile() {
             }
         }
         TaskParameter[min_index].TaskPriority = j;
-        printf("%d %d %d\n", period[min_index], j, TASK_NUMBER);
         period[min_index] = 99;
     }
 

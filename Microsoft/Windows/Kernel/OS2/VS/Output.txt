@@ -1,17 +1,18 @@
- 1	task( 3)( 1)	task( 2)( 1)	OSIntExit ()
- 2	task( 2)( 0)	task( 1)( 1)	OSIntExit ()
- 4	task( 1)( 0)	task( 3)( 2)	OSIntExit ()
- 6	task( 3)( 3)	task( 2)( 1)	OSIntExit ()
- 7	task( 2)( 0)	task( 3)( 4)	OSIntExit ()
-11	task( 3)( 5)	task( 2)( 1)	OSIntExit ()
-12	task( 2)( 0)	task( 1)( 1)	OSIntExit ()
-14	task( 1)( 0)	task( 3)( 6)	OSIntExit ()
-16	task( 3)( 1)	task( 2)( 1)	OSIntExit ()
-17	task( 2)( 0)	task( 3)( 2)	OSIntExit ()
-21	task( 3)( 3)	task( 2)( 1)	OSIntExit ()
-22	task( 2)( 0)	task( 1)( 1)	OSIntExit ()
-24	task( 1)( 0)	task( 3)( 4)	OSIntExit ()
-26	task( 3)( 5)	task( 2)( 1)	OSIntExit ()
-27	task( 2)( 0)	task( 3)( 6)	OSIntExit ()
-28	task( 3)( 7)	task(65535)( 1)	OSIntExit ()
-30	task(65535)( 2)	task( 3)( 8)	OSIntExit ()
+ 1	Preemption	 task( 3)( 0)	 task( 2)( 0)
+ 2	Completion	 task( 2)( 0)	 task( 1)( 0)	       1	      2		     0		    4
+ 4	Completion	 task( 1)( 0)	 task( 3)( 0)	       2	      2		     0		    8
+ 6	Preemption	 task( 3)( 0)	 task( 2)( 1)
+ 7	Completion	 task( 2)( 1)	 task( 3)( 0)	       1	      2		     0		    4
+11	Preemption	 task( 3)( 0)	 task( 2)( 2)
+12	Completion	 task( 2)( 2)	 task( 1)( 1)	       1	      2		     0		    4
+14	Completion	 task( 1)( 1)	 task( 3)( 0)	       2	      2		     0		    8
+15	Completion	 task( 3)( 0)	 task( 3)( 1)	      15	      6		     7
+16	Preemption	 task( 3)( 1)	 task( 2)( 3)
+17	Completion	 task( 2)( 3)	 task( 3)( 1)	       1	      2		     0		    4
+21	Preemption	 task( 3)( 1)	 task( 2)( 4)
+22	Completion	 task( 2)( 4)	 task( 1)( 2)	       1	      2		     0		    4
+24	Completion	 task( 1)( 2)	 task( 3)( 1)	       2	      2		     0		    8
+26	Preemption	 task( 3)( 1)	 task( 2)( 5)
+27	Completion	 task( 2)( 5)	 task( 3)( 1)	       1	      2		     0		    4
+28	Completion	 task( 3)( 1)	 task(63)	      13	      7		     5		    2
+30	Preemption	 task(63)	 task( 3)( 2)
