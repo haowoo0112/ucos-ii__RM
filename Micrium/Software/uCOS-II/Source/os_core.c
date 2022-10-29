@@ -712,24 +712,30 @@ void  OSIntExit (void)
                 OSTCBHighRdy = OSTCBPrioTbl[OSPrioHighRdy];
                 if (OSPrioHighRdy != OSPrioCur) {          /* No Ctx Sw if current task is highest rdy */
 
+                    OSTCBHighRdy->OSTCBCtxSwCtr++;         /* Inc. # of context switches to this task  */
+                    OSTCBCur->OSTCBCtxSwCtr++;
+
                     if (OSTCBCur->OSTCBDly == 0)
                         printf("%2d\tPreemption\ttask(%2d)(%2d)\ttask(%2d)(%2d)\n", OSTimeGet(), OSTCBCur->OSTCBId, OSTCBCur->OSTCBCtxSwCtr, OSTCBHighRdy->OSTCBId, OSTCBHighRdy->OSTCBCtxSwCtr);
-                    else
-                        printf("%2d\tCompletion\ttask(%2d)(%2d)\ttask(%2d)(%2d)\t      %d\t%d\n",
+                    else {
+                        printf("%2d\tCompletion\ttask(%2d)(%2d)\ttask(%2d)(%2d)\t     %2d\t\t    %2d\t\t   %2d\t\t  %2d\n",
                             OSTimeGet(),
                             OSTCBCur->OSTCBId, OSTCBCur->OSTCBCtxSwCtr,
                             OSTCBHighRdy->OSTCBId, OSTCBHighRdy->OSTCBCtxSwCtr,
                             OSTimeGet() - OSTCBCur->OSTCBExtPtr->start_time,
-                            OSTCBCur->OSTCBCtxSwCtr
+                            OSTCBCur->OSTCBCtxSwCtr,
+                            OSTimeGet() - OSTCBCur->OSTCBExtPtr->start_time - OSTCBCur->OSTCBExtPtr->TaskExecutionTime,
+                            OSTCBCur->OSTCBDly
                         );
-                    
+                        OSTCBCur->OSTCBCtxSwCtr = 0;
+                    }
                     if ((Output_err = fopen_s(&Output_fp, "./Output.txt", "a")) == 0)
                     {
                         fprintf(Output_fp, "%2d\ttask(%2d)(%2d)\ttask(%2d)(%2d)\tOSIntExit ()\n", OSTimeGet(), OSTCBCur->OSTCBId, OSTCBCur->OSTCBCtxSwCtr, OSTCBHighRdy->OSTCBId, OSTCBHighRdy->OSTCBCtxSwCtr);
                         fclose(Output_fp);
                     }
 #if OS_TASK_PROFILE_EN > 0u
-                    OSTCBHighRdy->OSTCBCtxSwCtr++;         /* Inc. # of context switches to this task  */
+                    
 #endif
                     OSCtxSwCtr++;                          /* Keep track of the number of ctx switches */
    
@@ -895,7 +901,7 @@ void  OSStart (void)
         OSPrioCur     = OSPrioHighRdy;
         OSTCBHighRdy  = OSTCBPrioTbl[OSPrioHighRdy]; /* Point to highest priority task ready to run    */
         OSTCBCur      = OSTCBHighRdy;
-        printf("Tick\tEvent\t      CurrentTask ID\tNextTask ID    ResponseTime\t#of ContextSwitch\tPreemptionTime\tOSTimeDly\n");
+        printf("Tick\tEvent\t      CurrentTask ID\tNextTask ID    ResponseTime  #of ContextSwitch\tPreemptionTime\tOSTimeDly\n");
 
         OSStartHighRdy();                            /* Execute target specific code to start task     */
     }
